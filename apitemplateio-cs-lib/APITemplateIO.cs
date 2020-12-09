@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text.Json;
@@ -95,6 +96,16 @@ namespace apitemplateio
 			var response = await client.GetAsync(url);
 			var ret = await response.Content.ReadAsStringAsync();
 			return JsonSerializer.Deserialize<AccountInfoResponse>(ret);
+		}
+
+		public async Task<List<TemplateItemResponse>> ListTemplates()
+		{
+			var url = $"https://api.apitemplate.io/v1/list-templates";
+			var client = CreateHttpClient();
+			var response = await client.GetAsync(url);
+			var ret = await response.Content.ReadAsStringAsync();
+			Console.WriteLine(ret);
+			return JsonSerializer.Deserialize<List<TemplateItemResponse>>(ret);
 		}
 
 	}

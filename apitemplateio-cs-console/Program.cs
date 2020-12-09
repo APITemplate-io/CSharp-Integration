@@ -14,6 +14,7 @@ namespace apitemplateio_cs_console
 			await TestPDF();
 			await TestImage();
 			await TestAccountInformation();
+			await TestListTemplates();
 		}
 
 		static async Task TestPDF(){
@@ -47,6 +48,14 @@ namespace apitemplateio_cs_console
 			apitemplateio.APITemplateIO apitemplate = new APITemplateIO(api_key);
             AccountInfoResponse res = await apitemplate.GetAccountInformation();
             Console.WriteLine(res.subscription_product);
+		}
+
+		static async Task TestListTemplates(){
+			apitemplateio.APITemplateIO apitemplate = new APITemplateIO(api_key);
+            List<TemplateItemResponse> res = await apitemplate.ListTemplates();
+            foreach(var item in res){
+				Console.WriteLine(item.id);
+			}
 		}
 
 	}
